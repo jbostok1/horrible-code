@@ -1,35 +1,52 @@
+# This is going to be a simple calculator, you can add, subtract, multiply, and divide!
+
+# Function for adding
+def add(x, y):
+    return x + y
+
+# Function for subtracting
+def subtract(x, y):
+    return x - y
+
+# Function for multiplying
+def multiply(x, y):
+    return x * y
+
+# Function for dividing
+def divide(x, y):
+    if y == 0:
+        raise ValueError('Cannot divide by zero')
+    return x / y
+
+# This is going to be the main function
 def calculator():
     while True:
         try:
-            number1 = float(input("Enter first number: "))
-            number2 = float(input("Enter second number: "))
-            operator = input("Enter operator: please use (+,-,*,/): ")
+            # Input numbers and operations
+            num1 = float(input("Enter the first number: "))
+            num2 = float(input("Enter the second number: "))
+            operator = input("Enter the operation you want to perform (+, -, *, /): ")
+            
+            operations = {
+                '+': add,
+                '-': subtract,
+                '*': multiply,
+                '/': divide
+            }
 
-            # Perform the calculation!
-            if operator == '+':
-                result = number1 + number2
-            elif operator == '-':
-                result = number1 - number2
-            elif operator == '*':
-                result = number1 * number2
-            elif operator == '/':
-                if number2 == 0:
-                    print("Can't divide by zero")
-                    continue
-                result = number1 / number2
+            if operator in operations:
+                result = operations[operator](num1, num2)
+                print(f"{num1} {operator} {num2} = {result}")
             else:
                 print("Invalid operator")
-                continue
 
-            # Print the result
-            print("Result: ", result)
+        except ValueError as e:
+            print(f"Invalid input: {e}")
 
-        except ValueError:
-            print("Invalid input. Please enter a valid number.")
+        repeat = input("Do you want to perform another operation? (y/n): ")
 
-        # Ask if the user wants to perform another calculation
-        repeat = input("Do you want to continue? (y/n) ")
-        if repeat.lower() != 'y':
+        if repeat.lower() != "y":
             break
 
+# Run calculator
 calculator()
